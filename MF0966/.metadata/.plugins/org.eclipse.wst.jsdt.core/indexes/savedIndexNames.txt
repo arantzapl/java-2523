@@ -1,0 +1,1 @@
+INDEX VERSION 1.4+C:\Users\arant\OneDrive\Escritorio\Programación\IFCD0211\JavaIFCD0211\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
