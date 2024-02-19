@@ -2,11 +2,31 @@ package com.ipartek.formacion.uf2214.entidades;
 
 import java.util.Objects;
 
+import jakarta.persistence.*;
+
+
+@Entity
+@Table(name = "denuncias")
 public class Denuncia {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "quien_id", nullable = false, foreignKey = @ForeignKey(name = "FK_denuncia_quien"))
 	private Usuario quien;
+	
+	@ManyToOne
+	@JoinColumn(name = "a_quien_id", nullable = false, foreignKey = @ForeignKey(name = "FK_denuncia_a_quien"))
 	private Usuario aQuien;
+	
+	@Column(name = "razon", length = 255, nullable = false)
 	private String razon;
+	
+	@ManyToOne
+	@JoinColumn(name = "post_id", nullable = true, foreignKey = @ForeignKey(name = "FK_denuncia_post"))
+//	Dejamos como opcional el POST porque se puede denunciar directamente a un usuario
 	private Post post;
 	
 	public Denuncia () {

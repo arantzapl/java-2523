@@ -2,10 +2,17 @@ package com.ipartek.formacion.uf2214.entidades;
 
 import java.util.Objects;
 
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "roles")
 public class Rol {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long id;
+	
+	@Column(name = "nombre", length = 50, nullable = false)
 	private String nombre;
 	
 	public Rol() {
