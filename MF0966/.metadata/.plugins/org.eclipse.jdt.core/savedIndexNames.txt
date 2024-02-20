@@ -1,4 +1,0 @@
-INDEX VERSION 1.134+C:\Users\arant\Desktop\Programación\IFCD0211\JavaIFCD0211\.metadata\.plugins\org.eclipse.jdt.core
-1758304963.index
-4138274656.index
-1865797976.index
