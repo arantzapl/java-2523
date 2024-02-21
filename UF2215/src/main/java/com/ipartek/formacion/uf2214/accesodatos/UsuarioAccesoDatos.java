@@ -4,7 +4,6 @@ import static com.ipartek.formacion.uf2214.accesodatos.AccesoDatosJpa.enTransacc
 
 import java.util.List;
 
-import com.ipartek.formacion.uf2214.entidades.Post;
 import com.ipartek.formacion.uf2214.entidades.Usuario;
 
 public class UsuarioAccesoDatos {

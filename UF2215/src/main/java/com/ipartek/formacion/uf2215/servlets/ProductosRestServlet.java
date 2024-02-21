@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/api/v1/productos/*")
+@WebServlet("/api/v1/productos")
 public class ProductosRestServlet extends HttpServlet {
 	private static TreeMap<Long, Producto> productos = new TreeMap<>();
 

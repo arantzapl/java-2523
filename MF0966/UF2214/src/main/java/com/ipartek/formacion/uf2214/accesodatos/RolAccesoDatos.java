@@ -8,6 +8,9 @@ public class RolAccesoDatos {
 	}
 	
 	public static void insertar(Rol rol) {
-		AccesoDatosJpa.enTransaccion(em -> em.persist(rol));
+		AccesoDatosJpa.enTransaccion(em -> {
+			em.persist(rol);
+			return null;
+		});
 	}
 }
