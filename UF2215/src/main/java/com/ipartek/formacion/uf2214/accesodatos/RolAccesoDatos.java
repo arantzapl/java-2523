@@ -14,22 +14,22 @@ public class RolAccesoDatos {
 //			return roles;
 //		});
 	}
-	
+
 	public static Rol obtenerPorId(long id) {
 		return AccesoDatosJpa.enTransaccion(em -> em.find(Rol.class, id));
 	}
-	
+
 	public static void insertar(Rol rol) {
 		AccesoDatosJpa.enTransaccion(em -> {
 			em.persist(rol);
 			return null;
 		});
 	}
-	
+
 	public static Rol modificar(Rol rol) {
 		return AccesoDatosJpa.enTransaccion(em -> em.merge(rol));
 	}
-	
+
 	public static void borrar(Long id) {
 		AccesoDatosJpa.enTransaccion(em -> {
 			em.remove(em.find(Rol.class, id));
