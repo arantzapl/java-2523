@@ -1,11 +1,19 @@
 package com.ipartek.formacion.uf2214.entidades;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
-import jakarta.persistence.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "posts")
@@ -14,32 +22,31 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
+
 	@Column(name = "fecha", nullable = false)
-	private LocalDate fecha;
-	
+	private LocalDateTime fecha;
+
 	@ManyToOne
 	@JoinColumn(name = "usuario_id", nullable = false, foreignKey = @ForeignKey(name = "FK_post_usuario"))
 	private Usuario usuario;
-	
-	@Column(name = "texto", length = 240)
+
+	@Column(name = "texto", length = 240, nullable = false)
 	private String texto;
-	
+
 	@ManyToMany(mappedBy = "postsQueLeGustan")
 	private Set<Usuario> gustaA;
-	
-	public Post () {
-		
+
+	public Post() {
 	}
 
 	public Post(Usuario usuario, String texto) {
 		super();
 		this.usuario = usuario;
 		this.texto = texto;
-		this.fecha = LocalDate.now();
+		this.fecha = LocalDateTime.now();
 	}
 
-	public Post(Long id, LocalDate fecha, Usuario usuario, String texto, Set<Usuario> gustaA) {
+	public Post(Long id, LocalDateTime fecha, Usuario usuario, String texto, Set<Usuario> gustaA) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
@@ -56,11 +63,11 @@ public class Post {
 		this.id = id;
 	}
 
-	public LocalDate getFecha() {
+	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 
@@ -89,14 +96,8 @@ public class Post {
 	}
 
 	@Override
-	public String toString() {
-		return "Post [id=" + id + ", fecha=" + fecha + ", usuario=" + usuario + ", texto=" + texto + ", gustaA="
-				+ gustaA + "]";
-	}
-
-	@Override
 	public int hashCode() {
-		return Objects.hash(fecha, gustaA, id, texto, usuario);
+		return Objects.hash(fecha, id, texto, usuario);
 	}
 
 	@Override
@@ -108,10 +109,12 @@ public class Post {
 		if (getClass() != obj.getClass())
 			return false;
 		Post other = (Post) obj;
-		return Objects.equals(fecha, other.fecha) && Objects.equals(gustaA, other.gustaA)
-				&& Objects.equals(id, other.id) && Objects.equals(texto, other.texto)
+		return Objects.equals(fecha, other.fecha) && Objects.equals(id, other.id) && Objects.equals(texto, other.texto)
 				&& Objects.equals(usuario, other.usuario);
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Post [id=" + id + ", fecha=" + fecha + ", usuario=" + usuario + ", texto=" + texto + "]";
+	}
 }
