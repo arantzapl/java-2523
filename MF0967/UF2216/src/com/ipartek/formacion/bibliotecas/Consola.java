@@ -1,5 +1,6 @@
 package com.ipartek.formacion.bibliotecas;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -10,16 +11,32 @@ public class Consola {
 	public static final boolean OPCIONAL = true;
 	public static final boolean OBLIGATORIO = false;
 
+	public static void pfl(String formato, Object... datos) {
+		System.out.printf(formato + "\n", datos);
+	}
+	
+	public static void pl(Object o) {
+		System.out.println(o);
+	}
+	
+	public static void pl() {
+		System.out.println();
+	}
+	
+	public static void p(Object o) {
+		System.out.print(o);
+	}
+	
 	public static String leerString(String mensaje, boolean esOpcional) {
 		String texto;
 		boolean repetir = true;
 
 		do {
-			System.out.print(mensaje + ": ");
+			p(mensaje + ": ");
 			texto = sc.nextLine().trim();
 
 			if (!esOpcional && texto.length() == 0) {
-				System.out.println("Este dato es obligatorio");
+				pl("Este dato es obligatorio");
 			} else {
 				repetir = false;
 			}
@@ -51,7 +68,7 @@ public class Consola {
 				l = Long.parseLong(dato);
 				hayError = false;
 			} catch (NumberFormatException e) {
-				System.out.println("El número debe ser un entero entre " + Long.MIN_VALUE + " y " + Long.MAX_VALUE);
+				pl("El número debe ser un entero entre " + Long.MIN_VALUE + " y " + Long.MAX_VALUE);
 			}
 		} while (hayError);
 
@@ -89,7 +106,7 @@ public class Consola {
 				i = Integer.parseInt(dato);
 
 				if (i < minimo || i > maximo) {
-					System.out.println("El valor está fuera de límites");
+					pl("El valor está fuera de límites");
 				} else {
 					hayError = false;
 				}
@@ -102,6 +119,49 @@ public class Consola {
 		return i;
 	}
 
+	public static BigDecimal leerBigDecimal(String mensaje) {
+		return leerBigDecimal(mensaje, true, null, null);
+	}
+
+	public static BigDecimal leerBigDecimal(String mensaje, boolean opcional) {
+		return leerBigDecimal(mensaje, opcional, null, null);
+	}
+	
+	public static BigDecimal leerBigDecimal(String mensaje, boolean opcional, BigDecimal minimo, BigDecimal maximo) {
+		boolean hayError = true;
+		BigDecimal bd = BigDecimal.ZERO;
+
+		do {
+			try {
+				String dato = leerString(mensaje, opcional);
+
+				if (dato == null) {
+					return null;
+				}
+
+				bd = new BigDecimal(dato);
+
+				if ((minimo != null && bd.compareTo(minimo) < 0) || (maximo != null && bd.compareTo(maximo) > 0)) {
+					pl("El valor está fuera de límites");
+				} else {
+					hayError = false;
+				}
+			} catch (NumberFormatException e) {
+				pl("El número debe ser un decimal");
+			}
+		} while (hayError);
+
+		return bd;
+	}
+	
+	public static Boolean leerBoolean(String mensaje) {
+		String texto = leerString(mensaje + " [SI|NO]");
+		
+		Boolean b = "si".equalsIgnoreCase(texto);
+		
+		return b;
+	}
+	
 	public static LocalDate leerFecha(String mensaje) {
 		return leerFecha(mensaje, OBLIGATORIO);
 	}
@@ -133,12 +193,12 @@ public class Consola {
 				fecha = LocalDate.parse(dato);
 
 				if (fecha.isBefore(minima) || fecha.isAfter(maxima)) {
-					System.out.println("Fecha fuera de límites");
+					pl("Fecha fuera de límites");
 				} else {
 					hayError = false;
 				}
 			} catch (DateTimeParseException e) {
-				System.out.println("La fecha debe ser válida");
+				pl("La fecha debe ser válida");
 			}
 		} while (hayError);
 
@@ -157,7 +217,7 @@ public class Consola {
 			texto = leerString(mensaje, opcional);
 			
 			if (texto != null && !Dni.validarDni(texto)) {
-				System.out.println("El DNI no es conforme a la validación");
+				pl("El DNI no es conforme a la validación");
 			} else {
 				repetir = false;
 			}
