@@ -1,0 +1,281 @@
+openapi: '3.0.2'
+info:
+  title: examen_mf0966
+  version: '1.0'
+servers:
+  - url: http://localhost:8080/examen_mf0966/api/v2
+
+tags:
+  - name: Alumno
+  - name: Cliente
+  - name: Curso
+  - name: Impartición
+  - name: Profesor
+  - name: Resena
+paths:
+  /alumno:
+    get:
+      tags:
+        - Alumno
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+                schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Alumno'
+  /curso:
+    get:
+      tags:
+       - Curso
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+                schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Curso'
+  /curso/{codigo}:
+    get:
+      tags:
+      - Curso
+      parameters:
+      - name: codigo
+        in: path
+        required: true
+        schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+                schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Curso'
+        '404':
+          description: NOT FOUND
+  /resena:
+    get:
+      tags:
+      - Resena
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+                schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Resena'
+        '404':
+          description: NOT FOUND
+    post:
+      tags:
+      - Resena
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resena'
+        required: true
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resena'
+  /resena/{id}:
+    get:
+      tags:
+      - Resena
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+                schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Resena'
+        '404':
+          description: NOT FOUND
+    put:
+      tags:
+      - Resena
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resena'
+      responses:
+        '200':
+          description: OK
+    delete:
+      tags:
+        - Resena
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: NO CONTENT      
+
+components:
+  schemas:
+    Alumno:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellidos:
+          type: string
+        fNacimiento:
+          type: string
+          format: date-time
+        direccion:
+          type: string
+        poblacion:
+          type: string
+        codigopostal:
+          type: integer
+        telefono:
+          type: integer
+        email:
+          type: string
+        dni:
+          type: string
+        nHermanos:
+          type: integer
+        activo:
+          type: integer
+    Profesor:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        apellidos:
+          type: string
+        fNacimiento:
+          type: string
+          format: date-time
+        dni:
+          type: string
+        direccion:
+          type: string
+        poblacion:
+          type: string
+        codigopostal:
+          type: integer
+        telefono:
+          type: integer
+        email:
+          type: string
+        activo:
+          type: integer
+    Curso:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        identificador:
+          type: string
+        fInicio:
+          type: string
+          format: date-time
+        fFin:
+          type: string
+          format: date-time
+        nHoras:
+          type: integer
+        temario:
+          type: string
+        activo:
+          type: integer
+        Cliente: 
+          $ref: '#/components/schemas/Cliente'
+        precio:
+          type: integer
+        Profesor:
+          $ref: '#/components/schemas/Profesor'
+    Cliente:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        email:
+          type: string
+        telefono:
+          type: integer
+        direccion:
+          type: string
+        poblacion:
+          type: string
+        codigopostal:
+          type: integer
+        identificador:
+          type: string
+        activo: 
+          type: integer
+    Imparticion:
+      type: object
+      properties:
+        codigo:
+          type: integer
+          format: int64
+        fMatriculacion:
+          type: string
+          format: date-time
+        Curso:
+          $ref: '#/components/schemas/Curso'
+        Alumno:
+          $ref: '#/components/schemas/Alumno'
+    Resena:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        descripcion:
+          type: string
+        Curso:
+          $ref: '#/components/schemas/Curso'
+        Alumno:
+          $ref: '#/components/schemas/Alumno'

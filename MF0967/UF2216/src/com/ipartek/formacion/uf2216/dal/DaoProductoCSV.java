@@ -106,7 +106,6 @@ public class DaoProductoCSV extends DaoProductoTreeMap{
 
 	@Override
 	public Producto obtenerPorId(Long id) {
-		// TODO Auto-generated method stub
 		return super.obtenerPorId(id);
 	}
 
@@ -129,13 +128,11 @@ public class DaoProductoCSV extends DaoProductoTreeMap{
 
 	@Override
 	public void borrar(Long id) {
-		// TODO Auto-generated method stub
 		super.borrar(id);
 	}
 
 	@Override
 	public Iterable<Producto> buscarPorNombre(String nombre) {
-		// TODO Auto-generated method stub
 		return super.buscarPorNombre(nombre);
 	}
 }
