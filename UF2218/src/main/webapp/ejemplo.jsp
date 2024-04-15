@@ -7,6 +7,13 @@
 <title>Prueba</title>
 </head>
 <body>
-<h1>Prueba</h1>
+	<%
+	for (int i = 1; i < 6; i++){
+	%>
+		<h1>Prueba <%= i %> </h1>
+	<%
+	}
+	%>
+
 </body>
 </html>
