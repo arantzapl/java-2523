@@ -1,0 +1,23 @@
+package com.ipartek.formacion.examen.presentacion.controladores;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+import com.ipartek.formacion.examen.configuraciones.Globales;
+
+@WebServlet("/admin/libros")
+public class AdminLibrosServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setAttribute("libros", Globales.DAO_LIBRO.obtenerTodos());
+		
+		request.getRequestDispatcher("/WEB-INF/vistas/admin.jsp").forward(request, response);
+	}
+}

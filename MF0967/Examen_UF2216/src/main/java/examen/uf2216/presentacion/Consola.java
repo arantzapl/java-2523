@@ -96,7 +96,5 @@ public class Consola {
             valor = scanner.nextLine();
         } while (!valor.equalsIgnoreCase("true") && !valor.equalsIgnoreCase("false"));
         return Boolean.parseBoolean(valor);
-    }
-    
-    
+    }   
 }
