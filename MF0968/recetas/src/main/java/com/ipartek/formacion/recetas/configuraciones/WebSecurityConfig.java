@@ -1,14 +1,16 @@
 package com.ipartek.formacion.recetas.configuraciones;
-import javax.sql.*;
 
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.context.annotation.*;
-import org.springframework.security.config.annotation.authentication.builders.*;
-import org.springframework.security.config.annotation.web.builders.*;
-import org.springframework.security.config.annotation.web.configuration.*;
-import org.springframework.security.crypto.bcrypt.*;
-import org.springframework.security.crypto.password.*;
-import org.springframework.security.web.*;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
@@ -19,17 +21,28 @@ public class WebSecurityConfig {
 	// AUTENTICACIÓN
 	@Autowired
 	private DataSource dataSource;
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth)
 	  throws Exception {
-	    auth.jdbcAuthentication().dataSource(dataSource);
+	    auth.jdbcAuthentication().dataSource(dataSource)
+	    	.usersByUsernameQuery("""
+    			SELECT email,password,1 
+    			FROM usuarios 
+    			WHERE email = ?
+			""")
+	    	.authoritiesByUsernameQuery("""
+    			SELECT email, CONCAT('ROLE_',rol)
+    			FROM recetas.usuarios
+				WHERE email = ?
+			""");
 	}
 
 	@Bean
 	PasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder();
 	}
-
+	
 	// AUTORIZACIÓN
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,11 +52,12 @@ public class WebSecurityConfig {
 					.anyRequest().authenticated()
 				)
 				.formLogin((form) -> form
-//						.loginPage("/login")
+						.loginPage("/login")
 						.permitAll()
 				)
-//				.logout((logout) -> logout.permitAll())
+				.logout((logout) -> logout.permitAll())
 				;
+
 		return http.build();
 	}
 }

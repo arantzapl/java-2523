@@ -30,14 +30,18 @@ public class Usuario {
 	@NotBlank
 	@Size(min = 3, max = 100)
 	private String nombre;
-
+	
 	@NotNull
 	@Email
 	@Size(max = 100)
 	private String email;
-
+	
 	@NotNull
 	@NotBlank
 	@Size(min = 3, max = 100)
 	private String password;
+	
+	@NotNull
+	@NotBlank
+	private String rol;
 }

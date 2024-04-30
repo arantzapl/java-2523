@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
 <title>Ingredientes del plato</title>
-</head>
-<body>
+<main>
 	<h1>Ingredientes del Plato</h1>
-
+	
 	<div th:object="${plato}">
 		<h2 th:text="*{nombre}">PIZZA</h2>
 		<p th:text="*{dificultad.nombre}">Fácil</p>
 		<p th:text="*{tipoCocina.nombre}">Italiana</p>
-
+		
 		<table>
 			<thead>
 				<tr>
@@ -29,22 +26,21 @@
 			</tbody>
 		</table>
 	</div>
-
+	
 	<form th:action="${'/plato/' + plato.id}" method="post" th:object="${platoIngrediente}">
 		<input type="hidden" th:field="*{plato.id}" th:value="${plato.id}">
-
+		
 		<select th:field="*{ingrediente}">
 			<option th:each="ingrediente: ${ingredientes}" th:text="${ingrediente.nombre}" th:value="${ingrediente.id}">Patata</option>
 		</select>
-
+		
 		<input th:field="*{medida}" placeholder="Medida">
 		<span th:errors="*{medida}"></span>
 
 		<input type="number" th:field="*{cantidad}" placeholder="Cantidad">
 		<span th:errors="*{cantidad}"></span>
-
+		
 		<button>Guardar</button>
 	</form>
-
-</body>
-</html>
+	
+</main>
