@@ -31,19 +31,18 @@ public class Plato {
 	@NotBlank
 	@Size(min = 3, max = 100)
 	private String nombre;
-
+	
 	@Lob
 	@NotNull
 	@NotBlank
 	@Size(max = 5000)
 	private String preparacion;
-
+	
 	@NotNull
 	@ManyToOne
 	private TipoCocina tipoCocina;
-
+	
 	@NotNull
 	@ManyToOne
 	private Dificultad dificultad;
-
 }

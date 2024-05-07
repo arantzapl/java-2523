@@ -46,9 +46,11 @@ public class WebSecurityConfig {
 	// AUTORIZACIÓN
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(
+		http.csrf(x -> x.disable()).authorizeHttpRequests(
 				(requests) -> requests
 					.requestMatchers("/ingrediente").hasRole("ADMIN")
+					.requestMatchers(new String[]{"/css/**", "/js/**"}).permitAll()
+					.requestMatchers("/api/**").permitAll()
 					.anyRequest().authenticated()
 				)
 				.formLogin((form) -> form
