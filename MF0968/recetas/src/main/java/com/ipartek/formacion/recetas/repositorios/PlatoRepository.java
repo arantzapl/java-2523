@@ -1,11 +1,9 @@
 package com.ipartek.formacion.recetas.repositorios;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.repository.*;
 
-import com.ipartek.formacion.recetas.entidades.Plato;
+import com.ipartek.formacion.recetas.entidades.*;
 
-@RepositoryRestResource(path = "platos", collectionResourceRel = "platos")
-public interface PlatoRepository extends JpaRepository<Plato, Long> {
+public interface PlatoRepository extends CrudRepository<Plato, Long> {
 
 }

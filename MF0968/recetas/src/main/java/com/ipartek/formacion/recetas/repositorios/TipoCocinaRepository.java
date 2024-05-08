@@ -1,11 +1,9 @@
 package com.ipartek.formacion.recetas.repositorios;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.repository.*;
 
-import com.ipartek.formacion.recetas.entidades.TipoCocina;
+import com.ipartek.formacion.recetas.entidades.*;
 
-@RepositoryRestResource(path = "tiposcocina", collectionResourceRel = "tiposcocina")
-public interface TipoCocinaRepository extends JpaRepository<TipoCocina, Long> {
+public interface TipoCocinaRepository extends CrudRepository<TipoCocina, Long> {
 
 }
