@@ -1,34 +1,34 @@
 package com.ipartek.formacion.fullstack.accesodatos;
 
 import com.ipartek.formacion.fullstack.dtos.AlumnoDto;
-import com.ipartek.formacion.fullstack.dtos.CursoDto;
+import com.ipartek.formacion.fullstack.dtos.LibroDto;
 import com.ipartek.formacion.fullstack.entidades.Curso;
 
 public class DaoCursoJpa extends AccesoDatosJpa implements DaoCurso {
 
 	@Override
-	public Iterable<CursoDto> obtenerTodos() {
+	public Iterable<LibroDto> obtenerTodos() {
 		return enTransaccion(
-				em -> em.createQuery("select c.id, c.nombre from Curso c", CursoDto.class).getResultList());
+				em -> em.createQuery("select c.id, c.nombre from Curso c", LibroDto.class).getResultList());
 	}
 
 	@Override
-	public CursoDto obtenerPorId(Long id) {
-		return enTransaccion(em -> em.createQuery("select c.id, c.nombre from Curso c where c.id=:id", CursoDto.class)
+	public LibroDto obtenerPorId(Long id) {
+		return enTransaccion(em -> em.createQuery("select c.id, c.nombre from Curso c where c.id=:id", LibroDto.class)
 				.setParameter("id", id).getSingleResult());
 	}
 
 	@Override
-	public CursoDto insertar(CursoDto curso) {
+	public LibroDto insertar(LibroDto curso) {
 		return enTransaccion(em -> {
 			Curso c = new Curso(null, curso.nombre(), null);
 			em.persist(c);
-			return new CursoDto(c.getId(), c.getNombre());
+			return new LibroDto(c.getId(), c.getNombre());
 		});
 	}
 
 	@Override
-	public CursoDto modificar(CursoDto curso) {
+	public LibroDto modificar(LibroDto curso) {
 		return enTransaccion(em -> {
 			if (curso.id() == null) {
 				throw new AccesoDatosException("Para modificar un curso debes proporcionar el id");
@@ -36,7 +36,7 @@ public class DaoCursoJpa extends AccesoDatosJpa implements DaoCurso {
 
 			Curso c = new Curso(curso.id(), curso.nombre(), null);
 			em.merge(c);
-			return new CursoDto(c.getId(), c.getNombre());
+			return new LibroDto(c.getId(), c.getNombre());
 		});
 	}
 

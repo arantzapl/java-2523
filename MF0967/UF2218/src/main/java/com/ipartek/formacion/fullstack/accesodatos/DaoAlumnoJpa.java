@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.ipartek.formacion.fullstack.dtos.AlumnoDto;
 import com.ipartek.formacion.fullstack.dtos.AlumnoLoginDto;
-import com.ipartek.formacion.fullstack.dtos.CursoDto;
+import com.ipartek.formacion.fullstack.dtos.LibroDto;
 import com.ipartek.formacion.fullstack.entidades.Alumno;
 
 public class DaoAlumnoJpa extends AccesoDatosJpa implements DaoAlumno {
@@ -87,9 +87,9 @@ public class DaoAlumnoJpa extends AccesoDatosJpa implements DaoAlumno {
 	}
 
 	@Override
-	public Iterable<CursoDto> cursos(Long idAlumno) {
+	public Iterable<LibroDto> cursos(Long idAlumno) {
 		return enTransaccion(em -> em
-				.createQuery("select c.id, c.nombre from Curso c join c.alumnos a where a.id = :id", CursoDto.class)
+				.createQuery("select c.id, c.nombre from Curso c join c.alumnos a where a.id = :id", LibroDto.class)
 				.setParameter("id", idAlumno)
 				.getResultList());
 	}

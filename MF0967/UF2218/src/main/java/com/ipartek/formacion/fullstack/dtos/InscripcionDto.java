@@ -1,5 +1,5 @@
 package com.ipartek.formacion.fullstack.dtos;
 
-public record InscripcionDto(AlumnoDto alumno, CursoDto curso) {
+public record InscripcionDto(AlumnoDto alumno, LibroDto curso) {
 	
 }

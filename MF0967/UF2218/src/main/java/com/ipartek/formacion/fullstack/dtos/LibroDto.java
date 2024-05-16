@@ -1,5 +1,5 @@
 package com.ipartek.formacion.fullstack.dtos;
 
-public record CursoDto(Long id, String nombre) {
+public record LibroDto(Long id, String nombre) {
 
 }

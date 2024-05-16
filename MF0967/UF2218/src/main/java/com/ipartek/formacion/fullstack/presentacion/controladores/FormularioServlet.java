@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 import com.ipartek.formacion.fullstack.configuraciones.Globales;
 import com.ipartek.formacion.fullstack.dtos.AlumnoDto;
-import com.ipartek.formacion.fullstack.dtos.CursoDto;
+import com.ipartek.formacion.fullstack.dtos.LibroDto;
 import com.ipartek.formacion.fullstack.dtos.InscripcionDto;
 
 import jakarta.servlet.ServletException;
@@ -26,7 +26,7 @@ public class FormularioServlet extends HttpServlet {
 
 		if (sId != null) {
 			Long id = Long.valueOf(sId);
-			CursoDto curso = Globales.daoCurso.obtenerPorId(id);
+			LibroDto curso = Globales.daoCurso.obtenerPorId(id);
 			request.setAttribute("curso", curso);
 		}
 
@@ -88,7 +88,7 @@ public class FormularioServlet extends HttpServlet {
 	}
 
 	private InscripcionDto altaAlumnoCurso(AlumnoDto alumno, Long idCurso) {
-		CursoDto curso = Globales.daoCurso.obtenerPorId(idCurso);
+		LibroDto curso = Globales.daoCurso.obtenerPorId(idCurso);
 
 		var alumnoConId = Globales.daoAlumno.insertar(alumno);
 		Globales.daoAlumno.apuntarseACurso(alumnoConId.id(), idCurso);
