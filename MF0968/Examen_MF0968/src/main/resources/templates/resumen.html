@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="http://www.thymeleaf.org">
+<title>Resumen</title>
+<main class="container">
+	<h1 class="text-center mb-4">Resumen</h1>
+	<table class="table-striped w-100">
+		<thead style="background-color: #343a40; color: white;">
+			<tr class="d-flex align-items-center p-3">
+				<th class="w-20 text-center">ID</th>
+				<th class="w-50 text-center">Nombre</th>
+				<th class="w-50 text-center">Dirección</th>
+				<th class="w-50 text-center">Precio</th>
+				<th class="w-50 text-center">Número de habitaciones</th>
+				<th class="w-50 text-center">Tipo</th>
+				<th class="w-50 text-center">Servicio</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="d-flex align-items-center p-3" th:each="inmueble : ${inmuebles}">
+				<td class="w-20 text-center" th:text="${inmueble.id}">ID</td>
+				<td class="w-50 text-center" th:text="${inmueble.nombre}">Nombre</td>
+				<td class="w-50 text-center" th:text="${inmueble.direccion}">Dirección</td>
+				<td class="w-50 text-center" th:text="${inmueble.precio}">Precio</td>
+				<td class="w-50 text-center" th:text="${inmueble.nHabitaciones}">Número de habitaciones</td>
+				<td class="w-50 text-center" th:text="${inmueble.tipo}">Tipo</td>
+				<td class="w-50 text-center" th:text="${inmueble.servicio}">Servicio</td>
+			</tr>
+		</tbody>
+	</table>
+</main>

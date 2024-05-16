@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html th:replace="~{_global :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="http://www.thymeleaf.org">
+<title>Crear inmueble</title>
+<main>
+	<h1 class="text-center mb-4">Crear nuevo inmueble</h1>
+
+	<form th:action="@{/crear}" method="post" th:object="${inmueble}" class="p-5 center">
+		<input type="hidden" th:field="*{id}">
+		<div class="row mb-3">
+			<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''"
+					th:field="*{nombre}" placeholder="Nombre">
+				<div class="invalid-feedback" th:errors="*{nombre}"></div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="direccion" class="col-sm-2 col-form-label">Dirección</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					th:classappend="${#fields.hasErrors('direccion')} ? 'is-invalid' : ''"
+					th:field="*{direccion}" placeholder="Dirección">
+				<div class="invalid-feedback" th:errors="*{direccion}"></div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="precio" class="col-sm-2 col-form-label">Precio</label>
+			<div class="col-sm-10">
+				<input type="number" class="form-control"
+					th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : ''"
+					th:field="*{precio}" placeholder="Precio">
+				<div class="invalid-feedback" th:errors="*{precio}"></div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="nHabitaciones" class="col-sm-2 col-form-label">Número
+				de Habitaciones</label>
+			<div class="col-sm-10">
+				<input type="number" class="form-control"
+					th:classappend="${#fields.hasErrors('nHabitaciones')} ? 'is-invalid' : ''"
+					th:field="*{nHabitaciones}" placeholder="Número de Habitaciones">
+				<div class="invalid-feedback" th:errors="*{nHabitaciones}"></div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="tipo" class="col-sm-2 col-form-label">Tipo</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					th:classappend="${#fields.hasErrors('tipo')} ? 'is-invalid' : ''"
+					th:field="*{tipo}" placeholder="Tipo">
+				<div class="invalid-feedback" th:errors="*{tipo}"></div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="servicio" class="col-sm-2 col-form-label">Servicio</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control"
+					th:classappend="${#fields.hasErrors('servicio')} ? 'is-invalid' : ''"
+					th:field="*{servicio}" placeholder="Servicio">
+				<div class="invalid-feedback" th:errors="*{servicio}"></div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="offset-sm-2 col-sm-10">
+				<button class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+	</form>
+
+</main>
